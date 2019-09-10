@@ -14,7 +14,7 @@ var app = express()
 app.use(bodyparser.urlencoded({extended: true}))
 app.use(bodyparser.json())
 app.use(flash())
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true, cookie: {secure:true, maxAge: 6*60*60*1000}}));
 app.use(cookieParser('secret'))
 
 app.set('views', path.join(__dirname, '/views/'))

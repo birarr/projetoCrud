@@ -32,7 +32,6 @@ function insertDisciplina(req, res) {
                 });
             }
             else
-            req.flash('info', 'Your message goes here')
                 console.log('Error during record insertion : ' + err);
         }
     });

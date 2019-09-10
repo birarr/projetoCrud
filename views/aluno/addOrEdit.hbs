@@ -1,5 +1,10 @@
 <h3>{{viewTitle}}</h3>
 
+ {{#if info}} 
+     <div class="alert alert-danger">{{info}}</div> 
+{{/if}}
+
+
 <form action='/aluno' method='POST' autocomplete="off">
     <div class="form-group">
         <label for="">Nome completo</label>

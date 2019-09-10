@@ -32,7 +32,6 @@ function insertAluno(req, res) {
                 });
             }
             else
-            req.flash("success", "usuario ja cadastrado")
             res.redirect('/aluno')
                 console.log('Error during record insertion : ' + err);
         }
