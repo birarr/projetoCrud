@@ -8,7 +8,7 @@ const exphbs = require('express-handlebars')
 const bodyparser = require('body-parser')
 const flash = require('connect-flash')
 const session = require('express-session')
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 
 var app = express()
 app.use(bodyparser.urlencoded({extended: true}))
