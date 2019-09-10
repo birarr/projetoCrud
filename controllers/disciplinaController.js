@@ -1,53 +1,52 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const Aluno = mongoose.model('Aluno');
-
+const Disciplina = mongoose.model('Disciplina');
 
 router.get('/', (req, res) => {
-    res.render("aluno/addOrEdit", {
-        viewTitle: "Inserir aluno"
+    res.render("disciplina/addOrEdit", {
+        viewTitle: "Inserir disciplina"
     });
 });
 
 router.post('/', (req, res) => {
-        insertAluno(req, res);
+        insertDisciplina(req, res);
 
 });
 
 
-function insertAluno(req, res) {
-    var aluno = new Aluno();
-    aluno.fullName = req.body.fullName;
-    aluno.matricula = req.body.matricula;
-    aluno.save((err, doc) => {
+function insertDisciplina(req, res) {
+    var disciplina = new Disciplina();
+    disciplina.name = req.body.name;
+    disciplina.codigo = req.body.codigo;
+    disciplina.horario = req.body.horario;
+    disciplina.save((err, doc) => {
         if (!err)
-            res.redirect('aluno/list');
+            res.redirect('disciplina/list');
         else {
             if (err.name == 'ValidationError') {
                 validationError(err, req.body);
-                res.render("aluno/addOrEdit", {
-                    viewTitle: "Inserir aluno",
-                    aluno: req.body
+                res.render("disciplina/addOrEdit", {
+                    viewTitle: "Inserir disciplina",
+                    disciplina: req.body
                 });
             }
             else
-            req.flash("success", "usuario ja cadastrado")
-            res.redirect('/aluno')
+            req.flash('info', 'Your message goes here')
                 console.log('Error during record insertion : ' + err);
         }
     });
 }
 
-function updateAluno(req, res) {
+function updateDisciplina(req, res) {
     Aluno.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
-        if (!err) { res.redirect('aluno/list'); }
+        if (!err) { res.redirect('disciplina/list'); }
         else {
             if (err.name == 'ValidationError') {
                 validationError(err, req.body);
                 res.render("aluno/addOrEdit", {
-                    viewTitle: 'Atualizar aluno',
-                    aluno: req.body
+                    viewTitle: 'Atualizar disciplina',
+                    disciplina: req.body
                 });
             }
             else
@@ -58,9 +57,9 @@ function updateAluno(req, res) {
 
 
 router.get('/list', (req, res) => {
-    Aluno.find((err, docs) => {
+    Disciplina.find((err, docs) => {
         if (!err) {
-            res.render("aluno/list", {
+            res.render("disciplina/list", {
                 list: docs
             });
         }
@@ -74,8 +73,8 @@ router.get('/list', (req, res) => {
 function validationError(err, body) {
     for (field in err.errors) {
         switch (err.errors[field].path) {
-            case 'fullName':
-                body['fullNameError'] = err.errors[field].message;
+            case 'name':
+                body['nameError'] = err.errors[field].message;
                 break;
             default:
                 break;
@@ -84,10 +83,10 @@ function validationError(err, body) {
 }
 
 router.get('/:id', (req, res) => {
-    Aluno.findById(req.params.id, (err, doc) => {
+    Disciplina.findById(req.params.id, (err, doc) => {
         if (!err) {
-            res.render("aluno/addOrEdit", {
-                viewTitle: "Atualizar aluno",
+            res.render("disciplina/addOrEdit", {
+                viewTitle: "Atualizar disciplina",
                 aluno: doc
             });
         }
@@ -97,9 +96,9 @@ router.get('/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     Aluno.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.redirect('/aluno/list');
+            res.redirect('/disciplina/list');
         }
-        else { console.log('Erro ao deletar aluno :' + err); }
+        else { console.log('Erro ao deletar disciplina :' + err); }
     });
 });
 

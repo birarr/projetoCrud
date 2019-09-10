@@ -5,7 +5,8 @@ var alunoSchema = new mongoose.Schema({
     type: String
   },
   matricula: {
-    type: String
+    type: String,
+    unique:true
   }
 })
 

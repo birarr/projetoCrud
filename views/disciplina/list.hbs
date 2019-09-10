@@ -1,0 +1,24 @@
+<h3><a class="btn btn-secondary" href="/disciplina"><i class="fa fa-plus"></i> Criar nova disciplina</a> Lista de disciplinas</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Código</th>
+            <th>Horário</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.codigo}}</td>
+            <td>{{this.horario}}</td>
+            <td>
+                <a href="/disciplina/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="/disciplina/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
