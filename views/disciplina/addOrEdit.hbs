@@ -1,6 +1,7 @@
 <h3>{{viewTitle}}</h3>
 
 <form action='/disciplina' method='POST' autocomplete="off">
+<input type="hidden" name="_id" value="{{disciplina._id}}">
     <div class="form-group">
         <label for="">Nome da disciplina</label>
         <input type="text" class="form-control" name="name" placeholder="Nome da disciplina">

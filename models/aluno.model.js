@@ -7,7 +7,9 @@ var alunoSchema = new mongoose.Schema({
   matricula: {
     type: String,
     unique:true
-  }
+  },
+  disciplina: [{type: mongoose.Schema.Types.ObjectId, ref: 'Disciplina'}]
 })
 
-mongoose.model('Aluno', alunoSchema)
+
+Aluno: mongoose.model('Aluno', alunoSchema)

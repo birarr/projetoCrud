@@ -8,7 +8,9 @@ var disciplinaSchema = new mongoose.Schema({
     type: String,
     unique:true
   },
-  horario: Number
+  horario: Number,
+  aluno: [{type: mongoose.Schema.Types.ObjectId, ref: 'Aluno'}]
 })
+
 
 mongoose.model('Disciplina', disciplinaSchema)

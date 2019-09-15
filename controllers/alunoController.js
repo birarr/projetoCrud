@@ -11,8 +11,11 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    if (req.body._id == '')
         insertAluno(req, res);
-
+        else
+        updateAluno(req, res);
+ 
 });
 
 
@@ -32,7 +35,7 @@ function insertAluno(req, res) {
                 });
             }
             else
-            res.redirect('/aluno')
+            res.render('aluno/addOrEdit', {errors: "Matrícula invalida ou ja existente"})
                 console.log('Error during record insertion : ' + err);
         }
     });

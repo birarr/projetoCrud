@@ -3,6 +3,7 @@ require('./models/db')
 const express = require('express')
 const alunoController = require('./controllers/alunoController')
 const disciplinaController = require('./controllers/disciplinaController')
+const homeController = require('./controllers/homeController')
 const path = require('path')
 const exphbs = require('express-handlebars')
 const bodyparser = require('body-parser')
@@ -27,3 +28,4 @@ app.listen(3000, () => {
 
 app.use('/aluno', alunoController)
 app.use('/disciplina', disciplinaController)
+app.use('/home', homeController)

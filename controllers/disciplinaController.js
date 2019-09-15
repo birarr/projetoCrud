@@ -10,8 +10,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-        insertDisciplina(req, res);
-
+    if (req.body._id == '')
+    insertDisciplina(req, res);
+    else
+    updateDisciplina(req, res);
 });
 
 
@@ -43,7 +45,7 @@ function updateDisciplina(req, res) {
         else {
             if (err.name == 'ValidationError') {
                 validationError(err, req.body);
-                res.render("aluno/addOrEdit", {
+                res.render("disciplina/addOrEdit", {
                     viewTitle: 'Atualizar disciplina',
                     disciplina: req.body
                 });
@@ -63,7 +65,7 @@ router.get('/list', (req, res) => {
             });
         }
         else {
-            console.log('Erro ao procurar o aluno :' + err);
+            console.log('Erro ao procurar o disciplina :' + err);
         }
     });
 });
@@ -93,7 +95,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/delete/:id', (req, res) => {
-    Aluno.findByIdAndRemove(req.params.id, (err, doc) => {
+    Disciplina.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
             res.redirect('/disciplina/list');
         }
