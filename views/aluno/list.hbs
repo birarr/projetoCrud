@@ -2,7 +2,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Full Name</th>
+            <th>Nome</th>
             <th>Matrícula</th>
             <th></th>
         </tr>
@@ -10,9 +10,10 @@
     <tbody>
         {{#each list}}
         <tr>
-            <td>{{this.fullName}}</td>
+            <td>{{this.nome}}</td>
             <td>{{this.matricula}}</td>
-            <td>
+            <td class="d-flex justify-content-end">
+                <a href="../matricula/{{this._id}}"><i class="fa fa-book fa-lg" aria-hidden="true"></i></a>
                 <a href="/aluno/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                 <a href="/aluno/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
             </td>

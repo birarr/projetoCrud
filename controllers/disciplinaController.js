@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 const Disciplina = mongoose.model('Disciplina');
+const Aluno = mongoose.model('Aluno')
 
 router.get('/', (req, res) => {
     res.render("disciplina/addOrEdit", {
@@ -19,14 +20,14 @@ router.post('/', (req, res) => {
 
 function insertDisciplina(req, res) {
     var disciplina = new Disciplina();
-    disciplina.name = req.body.name;
+    disciplina.nome = req.body.nome;
     disciplina.codigo = req.body.codigo;
     disciplina.horario = req.body.horario;
     disciplina.save((err, doc) => {
         if (!err)
             res.redirect('disciplina/list');
         else {
-            if (err.name == 'ValidationError') {
+            if (err.nome == 'ValidationError') {
                 validationError(err, req.body);
                 res.render("disciplina/addOrEdit", {
                     viewTitle: "Inserir disciplina",
@@ -34,16 +35,17 @@ function insertDisciplina(req, res) {
                 });
             }
             else
+            res.render('disciplina/addOrEdit', {errors: "Disciplina invalida ou já existente"})
                 console.log('Error during record insertion : ' + err);
         }
     });
 }
 
 function updateDisciplina(req, res) {
-    Aluno.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
+    Disciplina.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
         if (!err) { res.redirect('disciplina/list'); }
         else {
-            if (err.name == 'ValidationError') {
+            if (err.nome == 'ValidationError') {
                 validationError(err, req.body);
                 res.render("disciplina/addOrEdit", {
                     viewTitle: 'Atualizar disciplina',
@@ -51,6 +53,7 @@ function updateDisciplina(req, res) {
                 });
             }
             else
+            res.render('disciplina/addOrEdit', {errors: "Disciplina invalida ou já existente"})
                 console.log('Error during record update : ' + err);
         }
     });
@@ -88,7 +91,7 @@ router.get('/:id', (req, res) => {
         if (!err) {
             res.render("disciplina/addOrEdit", {
                 viewTitle: "Atualizar disciplina",
-                aluno: doc
+                disciplina: doc
             });
         }
     });

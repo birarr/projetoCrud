@@ -6,5 +6,7 @@ mongoose.connect('mongodb+srv://projeto1:projeto1@cluster0-enoaa.mongodb.net/Alu
   else {console.log("Error connection:" + err);}
 })
 
+
+
 require('./aluno.model')
 require('./disciplina.model')

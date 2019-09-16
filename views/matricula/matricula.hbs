@@ -1,17 +1,24 @@
-<div class="">
 <h2 class="d-flex justify-content-center">{{viewTitle}}</h2>
+<h2 class="d-flex justify-content-center">{{viewName}}</h2>
 
-<h3 class="d-flex justify-content-center">Matrícula Alunos</h3>
-<div class="d-flex justify-content-around" style="margin-bottom:8px">
-<a class="btn btn-secondary" href="/disciplina"><i class="fa fa-plus"></i> Criar nova disciplina</a>
-<a class="btn btn-secondary" href="/aluno"><i class="fa fa-plus"></i> Criar novo aluno</a></div>
- 
- <div class="d-flex justify-content-around" style="margin-top:12px">
-<a class="btn btn-secondary" href="/disciplina/list"><i class="fa fa-plus"></i> Listar disciplinas</a>
- <a class="btn btn-secondary" href="/aluno/list"><i class="fa fa-plus"></i> Listar alunos</a></div>
+<h3>{{Aluno._id}}</h3>
 
-<table class=".px-6 table table-striped">
+<table class="table table-striped">
     <thead>
-
+        <tr>
+            <th>Nome</th>
+        </tr>
     </thead>
+    <tbody>
+        {{#each disciplina}}
+        <tr>
+            <td>{{this.nome}}</td>
+            <td></td>
+            <td></td>
+            <td class="d-flex justify-content-end">
+                <a href="../matricula/registra/{{this._id}} onclick="return confirm('Você tem certeza que deseja fazer a matrícula nesta disciplina ?');""><i class="fa fa-book fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>

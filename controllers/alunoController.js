@@ -1,7 +1,8 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const Aluno = mongoose.model('Aluno');
+const Aluno = mongoose.model('Aluno')
+const Disciplina = mongoose.model('Disciplina');;
 
 
 router.get('/', (req, res) => {
@@ -21,13 +22,13 @@ router.post('/', (req, res) => {
 
 function insertAluno(req, res) {
     var aluno = new Aluno();
-    aluno.fullName = req.body.fullName;
+    aluno.nome = req.body.nome;
     aluno.matricula = req.body.matricula;
     aluno.save((err, doc) => {
         if (!err)
             res.redirect('aluno/list');
         else {
-            if (err.name == 'ValidationError') {
+            if (err.nome == 'ValidationError') {
                 validationError(err, req.body);
                 res.render("aluno/addOrEdit", {
                     viewTitle: "Inserir aluno",
@@ -45,7 +46,7 @@ function updateAluno(req, res) {
     Aluno.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
         if (!err) { res.redirect('aluno/list'); }
         else {
-            if (err.name == 'ValidationError') {
+            if (err.nome == 'ValidationError') {
                 validationError(err, req.body);
                 res.render("aluno/addOrEdit", {
                     viewTitle: 'Atualizar aluno',
@@ -53,6 +54,7 @@ function updateAluno(req, res) {
                 });
             }
             else
+            res.render('aluno/addOrEdit', {errors: "Matrícula invalida ou ja existente"})
                 console.log('Error during record update : ' + err);
         }
     });
@@ -76,8 +78,8 @@ router.get('/list', (req, res) => {
 function validationError(err, body) {
     for (field in err.errors) {
         switch (err.errors[field].path) {
-            case 'fullName':
-                body['fullNameError'] = err.errors[field].message;
+            case 'nome':
+                body['nomeError'] = err.errors[field].message;
                 break;
             default:
                 break;
